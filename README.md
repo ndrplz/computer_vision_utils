@@ -2,6 +2,15 @@
 
 Everything that I code more than twice during my PhD will end up here.
 
+stitching
+--- 
+- [stitching.py](stitching.py)
+
+    `stitch_together(input_images, layout, resize_dim=None, off_x=None, off_y=None):`
+    
+    Stitch together N input images into a bigger frame, using a grid layout.
+    Input images can be either color or grayscale, but must all have the same size.
+
 containers
 --- 
 
