@@ -7,6 +7,7 @@ def get_file_list_recursively(top_directory, allowed_extension=[]):
     """
     Get list of full paths of all files found under root directory "top_directory".
     If a list of allowed file extensions is provided, files are filtered according to this list.
+	
     :param top_directory: root of the hirearchy
     :param allowed_extension: list of extensions to filter result
     :return: list of files found under top_directory (with full path)
