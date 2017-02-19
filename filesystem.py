@@ -28,9 +28,11 @@ def get_file_list_recursively(top_directory, allowed_extension=[]):
                     pass  # skip this file
                 else:
                     file_list.append(path.join(cur_dir, file))
-                    sys.stdout.write('\r[{}] - currently found {:06d} files'.format(top_directory, len(file_list)))
+                    sys.stdout.write('\r[{}] - found {:06d} files...'.format(top_directory, len(file_list)))
                     sys.stdout.flush()
             else:
                 pass  # todo decide what to do with files without extension
+
+    sys.stdout.write(' Done.\n')
 
     return file_list
