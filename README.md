@@ -36,3 +36,30 @@ filesystem
     `get_file_list_recursively(top_directory, allowed_extension=[])`
     
     Get list of full paths of all files found under root directory "top_directory". If a list of allowed file extensions is provided, files are filtered according to this list.
+
+io
+---
+
+- [io_helper.py](io_helper.py)
+    
+    `read_image(path, channels_first, color=True, dtype=np.float32, resize_dim=None)`
+
+    Reads an image from "path" and returns respecting the self explanatory parameters
+
+tensor_manipulation
+-------------------
+
+- [tensor_manipulation.py](tensor_manipulation.py)
+
+    `resize_tensor(tensor, new_size)`
+
+    Resizes a numeri tensor having shape (channels, h, w) into the new size (channels, new_h, new_w).
+    Each channel is resized indipendently (good for feature maps).
+
+    `crop_tensor(tensor, indexes)`
+    Crops a numeric tensor having shape (channels, h, w) according to indexes in the form (h1,h2,w1,w2).
+
+
+
+
+
