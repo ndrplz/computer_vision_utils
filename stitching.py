@@ -60,7 +60,7 @@ def stitch_together(input_images, layout, resize_dim=None, off_x=None, off_y=Non
                         = input_images[list_idx]
 
     if resize_dim:
-        stitch = cv2.resize(stitch, dsize=(resize_dim))
+        stitch = cv2.resize(stitch, dsize=(resize_dim[::-1]))
 
     return stitch
 
