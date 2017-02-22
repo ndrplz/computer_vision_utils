@@ -41,7 +41,7 @@ io
 ---
 
 - [io_helper.py](io_helper.py)
-    
+
     `read_image(path, channels_first, color=True, dtype=np.float32, resize_dim=None)`
 
     Reads an image from "path" and returns respecting the self explanatory parameters
@@ -57,6 +57,7 @@ tensor_manipulation
     Each channel is resized indipendently (good for feature maps).
 
     `crop_tensor(tensor, indexes)`
+    
     Crops a numeric tensor having shape (channels, h, w) according to indexes in the form (h1,h2,w1,w2).
 
 
