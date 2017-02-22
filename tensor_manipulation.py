@@ -4,7 +4,7 @@ import numpy as np
 
 def resize_tensor(tensor, new_size):
     """
-    Resizes an input tensor with opencv. Resize is done for each channel indipendently,
+    Resizes a numeric input tensor with opencv. Resize is done for each channel indipendently.
 
     :param tensor: must have size (channels, h, w)
     :param new_size: tuple like (new_h, new_w)
@@ -14,5 +14,19 @@ def resize_tensor(tensor, new_size):
     new_tensor = np.zeros(shape=(channels,)+new_size)
     for i in range(0, channels):
         new_tensor[i] = cv2.resize(tensor[i], dsize=new_size[::-1])
+
+    return new_tensor
+
+
+def crop_tensor(tensor, indexes):
+    """
+    Crops a numeric input tensor.
+
+    :param tensor: must have size (channels, h, w)
+    :param indexes: in the form (h1, h2, w1, w2)
+    :return: the cropped tensor having size (channels, h2-h1, w2-w1)
+    """
+    h1, h2, w1, w2 = indexes
+    new_tensor = tensor[:, h1:h2, w1:w2].copy()
 
     return new_tensor
