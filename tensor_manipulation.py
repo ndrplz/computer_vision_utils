@@ -4,7 +4,7 @@ import numpy as np
 
 def resize_tensor(tensor, new_size):
     """
-    Resizes a numeric input tensor with opencv. Resize is done for each channel indipendently.
+    Resize a numeric input 3D tensor with opencv. Each channel is resized independently from the others.
 
     :param tensor: must have size (channels, h, w)
     :param new_size: tuple like (new_h, new_w)
@@ -20,7 +20,7 @@ def resize_tensor(tensor, new_size):
 
 def crop_tensor(tensor, indexes):
     """
-    Crops a numeric input tensor.
+    Crop a numeric 3D input tensor.
 
     :param tensor: must have size (channels, h, w)
     :param indexes: in the form (h1, h2, w1, w2)
