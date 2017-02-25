@@ -3,16 +3,14 @@ import numpy as np
 import os.path as path
 
 
-
-
-def read_image(image_path, channels_first, color=True, color_mode='RGB', dtype=np.float32, resize_dim=None):
+def read_image(img_path, channels_first, color=True, color_mode='RGB', dtype=np.float32, resize_dim=None):
 
     """
     Reads and returns an image as a numpy array
 
     Parameters
     ----------
-    image_path : string
+    img_path : string
         Path of the input image
     channels_first: bool
         If True, channel dimension is moved in first position
@@ -26,14 +24,15 @@ def read_image(image_path, channels_first, color=True, color_mode='RGB', dtype=n
         Resize size following convention (new_h, new_w) - interpolation is linear
 
     Returns
-    ----------
-    Loaded Image as numpy array of type dtype
+    -------
+    image : np.array
+        Loaded Image as numpy array of type dtype
     """
 
-    if not path.exists(image_path):
-        raise ValueError('Provided path "{}" does NOT exist.'.format(image_path))
+    if not path.exists(img_path):
+        raise ValueError('Provided path "{}" does NOT exist.'.format(img_path))
 
-    image = cv2.imread(image_path, cv2.IMREAD_COLOR if color else cv2.IMREAD_GRAYSCALE)
+    image = cv2.imread(img_path, cv2.IMREAD_COLOR if color else cv2.IMREAD_GRAYSCALE)
 
     if color and color_mode == 'RGB':
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
@@ -47,8 +46,44 @@ def read_image(image_path, channels_first, color=True, color_mode='RGB', dtype=n
     return image.astype(dtype)
 
 
+def write_image(img_path, img, channels_first=False, color_mode='RGB', resize_dim=None):
+    """
+    Writes an image (numpy array) on file
+
+    Parameters
+    ----------
+    img_path : string
+        Path where to save image
+    img : ndarray
+        Image that has to be saved
+    channels_first: bool
+        Set this True if shape is (c, h, w)
+    color_mode: "RGB", "BGR", optional
+        Whether the image is in RGB or BGR format
+    resize_dim: tuple, optional
+        Resize size following convention (new_h, new_w) - interpolation is linear
+
+    Returns
+    ----------
+    """
+
+    color = True if img.ndim == 3 else False
+    if color and channels_first:
+        img = img.transpose(1, 2, 0)
+
+    if color and color_mode == 'RGB':
+        img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+
+    if resize_dim is not None:
+        img = cv2.resize(img, resize_dim[::-1])
+
+    cv2.imwrite(img_path, img)
+
+
 if __name__ == '__main__':
 
-    img = read_image('img/test1.jpg', False, color=True, color_mode='BGR', dtype=np.uint8)
+    img = read_image('img/test1.jpg', False, color=False, color_mode='BGR', dtype=np.uint8)
     cv2.imshow('test image', img)
     cv2.waitKey()
+
+    write_image('img/test1_copy.jpg', img, channels_first=False, color_mode='BGR')

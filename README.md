@@ -46,6 +46,11 @@ io
 
     Reads an image from "path" and returns respecting the self explanatory parameters
 
+    `write_image(img_path, img, channels_first=False, color_mode='RGB', resize_dim=None)`
+    Writes an image into "img_path" file. If color, you must specify whether the color
+    dimension is the first one or the last one with "channels_first", and the "color_mode"
+    as well. Optionally one can resize the image.
+
 tensor_manipulation
 -------------------
 
