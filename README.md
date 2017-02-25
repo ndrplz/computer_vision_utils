@@ -2,6 +2,28 @@
 
 Everything that I code more than twice during my PhD will end up here.
 
+bounding boxes
+--- 
+
+- [bbox_helper.py](bbox_helper.py)
+
+    Defined class `Rectangle` which should help in all situations that involve handling of bounding boxes.
+
+    ```
+    class Rectangle(x_min, y_min, x_max, y_max)
+        Methods:
+            intersect_with(self, rect)
+            resize_sides(self, ratio, bounds=None)
+            draw(self, frame, color=255, thickness=1)
+            get_binary_mask(self, mask_shape)
+        Properties:
+            tl_corner(self)
+            br_corner(self)
+            coords(self)
+            area(self)
+    ```
+
+
 stitching
 --- 
 - [stitching.py](stitching.py)
@@ -47,7 +69,6 @@ io
     Reads an image from "path" and returns respecting the self explanatory parameters
 
     `write_image(img_path, img, channels_first=False, color_mode='RGB', resize_dim=None)`
-    
     Writes an image into "img_path" file. If color, you must specify whether the color
     dimension is the first one or the last one with "channels_first", and the "color_mode"
     as well. Optionally one can resize the image.
