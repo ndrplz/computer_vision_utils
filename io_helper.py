@@ -46,7 +46,7 @@ def read_image(img_path, channels_first, color=True, color_mode='RGB', dtype=np.
     return image.astype(dtype)
 
 
-def write_image(img_path, img, channels_first=False, color_mode='RGB', resize_dim=None):
+def write_image(img_path, img, channels_first=False, color_mode='RGB', resize_dim=None, normalize=False):
     """
     Writes an image (numpy array) on file
 
@@ -62,6 +62,8 @@ def write_image(img_path, img, channels_first=False, color_mode='RGB', resize_di
         Whether the image is in RGB or BGR format
     resize_dim: tuple, optional
         Resize size following convention (new_h, new_w) - interpolation is linear
+    normalize: bool
+        Whether or not to normalize the image between 0 and 255.
 
     Returns
     ----------
@@ -77,8 +79,32 @@ def write_image(img_path, img, channels_first=False, color_mode='RGB', resize_di
     if resize_dim is not None:
         img = cv2.resize(img, resize_dim[::-1])
 
+    if normalize:
+        normalize(img)
+
     cv2.imwrite(img_path, img)
 
+
+def normalize(img):
+    """
+    Normalizes an image between 0 and 255 and returns it as uint8.
+
+    Parameters
+    ----------
+    img : ndarray
+        Image that has to be normalized
+
+    Returns
+    ----------
+    img : ndarray
+        The normalized image
+    """
+    img -= img.min()
+    img = img.astype(np.float32) / img.max()
+    img *= 255
+    img = img.astype(np.uint8)
+
+    return img
 
 if __name__ == '__main__':
 
