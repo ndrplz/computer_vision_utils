@@ -73,6 +73,11 @@ io
     Writes an image into "img_path" file. If color, you must specify whether the color
     dimension is the first one or the last one with "channels_first", and the "color_mode"
     as well. Optionally one can resize the image.
+    
+    `normalize(img)`
+    
+    Normalizes an image between 0 and 255 and returns it as uint8.
+
 
 tensor_manipulation
 -------------------
