@@ -99,8 +99,9 @@ def normalize(img):
     img : ndarray
         The normalized image
     """
+    img = img.astype(np.float32)
     img -= img.min()
-    img = img.astype(np.float32) / img.max()
+    img /= img.max()
     img *= 255
     img = img.astype(np.uint8)
 
