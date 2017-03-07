@@ -8,12 +8,23 @@ def stitch_together(input_images, layout, resize_dim=None, off_x=None, off_y=Non
     Stitch together N input images into a bigger frame, using a grid layout.
     Input images can be either color or grayscale, but must all have the same size.
 
-    :param input_images: list of input images
-    :param layout: grid layout expressed (rows, cols) of the stitch
-    :param resize_dim: if not None, stitch is resized to this size
-    :param off_x: offset between stitched images along x axis
-    :param off_y: offset between stitched images along y axis
-    :return: stitch of input images
+    Parameters
+    ----------
+    input_images : list(ndarray)
+        List of input images
+    layout : tuple
+        Grid layout expressed (rows, cols) of the stitch
+    resize_dim : tuple, optional
+        If present, stitch is resized to this size following convention resize_dim=(new_h, new_w)
+    off_x : int, optional
+        Offset between stitched images along x axis
+    off_y : int, optional
+        Offset between stitched images along y axis
+
+    Returns
+    -------
+    stitch : ndarray
+        Stitch of the input images.
     """
 
     if len(set([img.shape for img in input_images])) > 1:
