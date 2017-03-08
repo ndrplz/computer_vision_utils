@@ -28,7 +28,7 @@ class Rectangle:
         self.x_side = self.x_max - self.x_min
         self.y_side = self.y_max - self.y_min
 
-        self.label=""
+        self.label=label
 
     def intersect_with(self, rect):
         """
