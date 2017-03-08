@@ -28,7 +28,7 @@ class Rectangle:
         self.x_side = self.x_max - self.x_min
         self.y_side = self.y_max - self.y_min
 
-        self.label=""
+        self.label=label
 
     def intersect_with(self, rect):
         """
@@ -97,7 +97,7 @@ class Rectangle:
 
         return Rectangle(new_x_min, new_y_min, new_x_max, new_y_max)
 
-    def draw(self, frame, color=255, thickness=2, draw_label=False):
+    def draw(self, frame, color=255, thickness=1, draw_label=False):
         """
         Draw Rectangle on a given frame.
 
@@ -121,14 +121,14 @@ class Rectangle:
         if draw_label and self.label:
 
             # compute text size
-            text_font, text_scale, text_thick = cv2.FONT_HERSHEY_SIMPLEX, 0.5, 1
+            text_font, text_scale, text_thick = cv2.FONT_HERSHEY_SIMPLEX, 0.5, 2
             (text_w, text_h), baseline = cv2.getTextSize(self.label, text_font, text_scale, text_thick)
 
             # draw rectangle on which text will be displayed
             text_rect_w = min(text_w, self.x_side - 2 * baseline)
             out = cv2.rectangle(frame.copy(), pt1=(self.x_min, self.y_min - text_h - 2 * baseline),
                           pt2=(self.x_min + text_rect_w + 2 * baseline, self.y_min), color=color, thickness=cv2.FILLED)
-            cv2.addWeighted(frame, 0.75, out, 0.25, 0, dst=frame)
+            cv2.addWeighted(frame, 0.5, out, 0.5, 0, dst=frame)
 
             # actually write text label
             cv2.putText(frame, self.label, (self.x_min + baseline, self.y_min - baseline),
@@ -210,7 +210,7 @@ if __name__ == '__main__':
 
     img = cv2.imread('img/test1.jpg')
     r = Rectangle(100, 100, 300, 300)
-    r.label = "ciao" * 3
+    r.label = "hello world!"
     r.draw(img, draw_label=True)
 
     cv2.imshow('', img)
