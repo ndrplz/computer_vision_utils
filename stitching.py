@@ -3,7 +3,7 @@ import glob
 import numpy as np
 
 
-def stitch_together(input_images, layout, resize_dim=None, off_x=None, off_y=None):
+def stitch_together(input_images, layout, resize_dim=None, off_x=None, off_y=None, bg_color=(0, 0, 0)):
     """
     Stitch together N input images into a bigger frame, using a grid layout.
     Input images can be either color or grayscale, but must all have the same size.
@@ -13,6 +13,7 @@ def stitch_together(input_images, layout, resize_dim=None, off_x=None, off_y=Non
     :param resize_dim: if not None, stitch is resized to this size
     :param off_x: offset between stitched images along x axis
     :param off_y: offset between stitched images along y axis
+    :param bg_color: color used for background
     :return: stitch of input images
     """
 
@@ -40,7 +41,8 @@ def stitch_together(input_images, layout, resize_dim=None, off_x=None, off_y=Non
     stitch_h = rows * img_h + (rows + 1) * off_y
     stitch_w = cols * img_w + (cols + 1) * off_x
     if mode == 'color':
-        stitch = np.zeros(shape=(stitch_h, stitch_w, img_c), dtype=np.uint8)
+        bg_color = np.array(bg_color)[None, None, :]  # cast to ndarray add singleton dimensions
+        stitch = np.uint8(np.repeat(np.repeat(bg_color, stitch_h, axis=0), stitch_w, axis=1))
     elif mode == 'grayscale':
         stitch = np.zeros(shape=(stitch_h, stitch_w), dtype=np.uint8)
 
@@ -71,7 +73,7 @@ if __name__ == '__main__':
 
     images = [cv2.imread(f, cv2.IMREAD_COLOR) for f in img_list]
 
-    s = stitch_together(images, layout=(5, 5), resize_dim=(1000, 1000))
+    s = stitch_together(images, layout=(5, 5), resize_dim=(1000, 1000), bg_color=(255, 255, 255))
 
     cv2.imshow('s', s)
     cv2.waitKey()
