@@ -3,7 +3,7 @@ import numpy as np
 import os.path as path
 
 
-def read_image(img_path, channels_first, color=True, color_mode='RGB', dtype=np.float32, resize_dim=None):
+def read_image(img_path, channels_first, color=True, color_mode='BGR', dtype=np.float32, resize_dim=None):
 
     """
     Reads and returns an image as a numpy array
@@ -46,7 +46,7 @@ def read_image(img_path, channels_first, color=True, color_mode='RGB', dtype=np.
     return image.astype(dtype)
 
 
-def write_image(img_path, img, channels_first=False, color_mode='RGB', resize_dim=None, to_normalize=False):
+def write_image(img_path, img, channels_first=False, color_mode='BGR', resize_dim=None, to_normalize=False):
     """
     Writes an image (numpy array) on file
 
