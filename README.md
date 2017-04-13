@@ -28,10 +28,11 @@ stitching
 --- 
 - [stitching.py](stitching.py)
 
-    `stitch_together(input_images, layout, resize_dim=None, off_x=None, off_y=None):`
+    `stitch_together(input_images, layout, resize_dim=None, off_x=None, off_y=None, bg_color=(0, 0, 0)):`
     
     Stitch together N input images into a bigger frame, using a grid layout.
     Input images can be either color or grayscale, but must all have the same size.
+    Background color is black by default, but it can be changed with `bg_color` parameter.
 
 containers
 --- 
