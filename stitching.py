@@ -7,19 +7,34 @@ def stitch_together(input_images, layout, resize_dim=None, off_x=None, off_y=Non
     """
     Stitch together N input images into a bigger frame, using a grid layout.
     Input images can be either color or grayscale, but must all have the same size.
-
-    :param input_images: list of input images
-    :param layout: grid layout expressed (rows, cols) of the stitch
-    :param resize_dim: if not None, stitch is resized to this size
-    :param off_x: offset between stitched images along x axis
-    :param off_y: offset between stitched images along y axis
-    :param bg_color: color used for background
-    :return: stitch of input images
+    
+    Parameters
+    ----------
+    input_images : list
+        List of input images
+    layout : tuple
+        Grid layout of the stitch expressed as (rows, cols) 
+    resize_dim : couple 
+        If not None, stitch is resized to this size
+    off_x : int
+        Offset between stitched images along x axis
+    off_y : int
+        Offset between stitched images along y axis
+    bg_color : tuple
+        Color used for background
+        
+    Returns
+    -------
+    stitch : ndarray
+        Stitch of input images
     """
 
     if len(set([img.shape for img in input_images])) > 1:
         raise ValueError('All images must have the same shape')
 
+    if len(set([img.dtype for img in input_images])) > 1:
+        raise ValueError('All images must have the same data type')
+    
     # determine if input images are color (3 channels) or grayscale (single channel)
     if len(input_images[0].shape) == 2:
         mode = 'grayscale'
