@@ -3,14 +3,22 @@ import sys
 import os.path as path
 
 
-def get_file_list_recursively(top_directory, allowed_extension=[]):
+def get_file_list_recursively(top_directory, allowed_extensions=[]):
     """
     Get list of full paths of all files found under root directory "top_directory".
     If a list of allowed file extensions is provided, files are filtered according to this list.
-	
-    :param top_directory: root of the hirearchy
-    :param allowed_extension: list of extensions to filter result
-    :return: list of files found under top_directory (with full path)
+    
+    Parameters
+    ----------
+    top_directory: str
+        Root of the hierarchy
+    allowed_extensions: list
+        List of extensions to filter result
+
+    Returns
+    -------
+    file_list: list
+        List of files found under top_directory (with full path)
     """
     if not path.exists(top_directory):
         raise ValueError('Directory "{}" does NOT exist.'.format(top_directory))
@@ -24,7 +32,7 @@ def get_file_list_recursively(top_directory, allowed_extension=[]):
             f_name, f_ext = path.splitext(file)
 
             if f_ext:
-                if allowed_extension and f_ext not in allowed_extension:
+                if allowed_extensions and f_ext not in allowed_extensions:
                     pass  # skip this file
                 else:
                     file_list.append(path.join(cur_dir, file))

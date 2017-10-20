@@ -8,10 +8,17 @@ def dump_list(input_list, file_path):
     """
     Dump list to file, either in "txt" or binary ("pickle") mode.
     Dump mode is chosen accordingly to "file_path" extension.
-
-    :param input_list: list object to dump
-    :param file_path: path of the dump file
-    :return: None
+    
+    Parameters
+    ----------
+    input_list: list 
+        List object to dump
+    file_path: str
+        Path of the dump file
+        
+    Returns
+    -------
+    None
     """
     f_name, f_ext = path.splitext(file_path)
 
@@ -30,9 +37,16 @@ def load_list(file_path):
     """
     Load list from file, either in "txt" or binary ("pickle") mode.
     Load mode is chosen accordingly to "file_path" extension.
+    
+    Parameters
+    ----------
+    file_path: str
+        Path of the dump file
 
-    :param file_path: dump file
-    :return: list object
+    Returns
+    -------
+    file_list: list
+        List loaded from file.
     """
     if not path.exists(file_path):
         raise IOError('File "{}" does not exist.'.format(file_path))
@@ -41,7 +55,7 @@ def load_list(file_path):
 
     file_list = []
 
-    with open(file_path, 'rb') as f:
+    with open(file_path, 'rt') as f:
         if f_ext == '.txt':
             for line in f:
                 file_list.append(line.strip())  # remove trailing newline
@@ -56,11 +70,20 @@ def load_list(file_path):
 def split_into_chunks(list_in, max_elements, shuffle=False):
     """
     Split a list a variable number of chunks of at most "max_elements" each.
+    
+    Parameters
+    ----------
+    list_in: list
+        Input list to split into chunks
+    max_elements: int
+        Max elements allowed into each chunk
+    shuffle: bool
+        If True, input list is shuffled before chunking
 
-    :param list_in: input list to be splitted
-    :param max_elements: max elements allowed into each chunk
-    :param shuffle: if True, input list is shuffled before chunking
-    :return: list of lists. Each element is a chunk of list_in
+    Returns
+    -------
+    list_out: list
+        List of list in which each element is a chunk of list_in
     """
 
     if not isinstance(list_in, list):
@@ -78,10 +101,3 @@ def split_into_chunks(list_in, max_elements, shuffle=False):
         counter += 1
 
     return list_out
-
-
-if __name__ == '__main__':
-
-    mylist = ['a', 'b', 'c', 'd', 'e']
-
-    split_into_chunks(mylist, max_elements=2, shuffle=True)
